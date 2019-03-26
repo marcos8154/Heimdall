@@ -1,11 +1,12 @@
 ﻿using Heimdall.Domain;
+using Heimdall.DomainStorageServices.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heimdall.DomainStorageServices.Contracts
+namespace Heimdall.Services.Contracts
 {
-    public interface IOrganizationStorageService
+    public interface IOrganizationService
     {
         void Register(Organization organization);
 

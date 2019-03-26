@@ -1,5 +1,7 @@
 ﻿using Heimdall.Domain.Configurations;
 using Heimdall.Security.Contracts;
+using Heimdall.Services;
+using Heimdall.Services.Contracts;
 using System;
 
 namespace HeimdallConsole
@@ -15,6 +17,8 @@ namespace HeimdallConsole
 
             Console.WriteLine(crypto);
             Console.WriteLine(decrypto);
+
+            IOrganizationService service = ServiceResolver<IOrganizationService>.Resolve();
 
             Console.ReadKey();
 

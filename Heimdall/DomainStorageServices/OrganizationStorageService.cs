@@ -1,5 +1,8 @@
 ﻿using Heimdall.Domain;
+using Heimdall.Domain.Exceptions;
+using Heimdall.DomainStorageServices.Commands;
 using Heimdall.DomainStorageServices.Contracts;
+using System;
 using System.Collections.Generic;
 
 namespace Heimdall.DomainStorageServices
@@ -13,97 +16,67 @@ namespace Heimdall.DomainStorageServices
 
         public void Change(Organization organization)
         {
-            string sql = @"update Organization set 
-Name = @name,
-Phone = @phone,
-Address = @address
-where Id = @id
-";
-
-            ConnectionFactory.OpenConnection();
-            ConnectionFactory.CreateCommand(sql);
-            ConnectionFactory.AddParameter("@id", organization.Id);
-            ConnectionFactory.AddParameter("@name", organization.Name);
-            ConnectionFactory.AddParameter("@phone", organization.Phone);
-            ConnectionFactory.AddParameter("@address", organization.Address);
-            ConnectionFactory.ExecuteCommand();
-            ConnectionFactory.CloseConnection();
+            try
+            {
+                IStorageCommand command = new ChangeOrganizationCommand(organization);
+                command.Execute(this);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ex.Message);
+            }
         }
 
         public Organization GetById(string id)
         {
-            string sql = "select * from Organization where Id = @id";
-            ConnectionFactory.OpenConnection();
-            ConnectionFactory.CreateCommand(sql);
-            ConnectionFactory.AddParameter("@id", id);
-            var dr = ConnectionFactory.ExecuteReader();
-
-            Organization result = null;
-
-            if (dr.Read())
+            try
             {
-                result = new Organization(
-                    id: dr.GetString(0),
-                    name: dr.GetString(1),
-                    phone: dr.GetString(2),
-                    address: dr.GetString(3));
+                IQueryCommand<Organization> command = new GetOrganizationByIdCommand(id);
+                return command.Execute(this);
             }
-
-            dr.Close();
-            ConnectionFactory.CloseConnection();
-
-            return result;
+            catch (Exception ex)
+            {
+                throw new ServiceException(ex.Message);
+            }
         }
 
         public void Register(Organization organization)
         {
-            string sql = @"insert into Organization 
-(Id, Name, Phone, Address) 
-values 
-(@id, @name, @phone, @address)";
-
-            ConnectionFactory.OpenConnection();
-            ConnectionFactory.CreateCommand(sql);
-            ConnectionFactory.AddParameter("@id", organization.Id);
-            ConnectionFactory.AddParameter("@name", organization.Name);
-            ConnectionFactory.AddParameter("@phone", organization.Phone);
-            ConnectionFactory.AddParameter("@address", organization.Address);
-            ConnectionFactory.ExecuteCommand();
-            ConnectionFactory.CloseConnection();
+            try
+            {
+                IStorageCommand command = new RegisterOrganizationCommand(organization);
+                command.Execute(this);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ex.Message);
+            }
         }
 
         public void Remove(Organization organization)
         {
-            string sql = "delete from Organization where Id = @id";
-            ConnectionFactory.OpenConnection();
-            ConnectionFactory.CreateCommand(sql);
-            ConnectionFactory.AddParameter("@id", organization.Id);
-            ConnectionFactory.ExecuteCommand();
-            ConnectionFactory.CloseConnection();
+            try
+            {
+                IStorageCommand command = new RemoveOrganizationCommand(organization);
+                command.Execute(this);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException(ex.Message);
+            }
         }
 
         public List<Organization> Search(string name)
         {
-            string sql = "select * from Organization where Name like @name";
-            ConnectionFactory.OpenConnection();
-            ConnectionFactory.CreateCommand(sql);
-            ConnectionFactory.AddParameter("@name", $"%{name}%");
-            var dr = ConnectionFactory.ExecuteReader();
-
-            List<Organization> result = new List<Organization>();
-            while (dr.Read())
+            try
             {
-                result.Add(new Organization(
-                    id: dr.GetString(0),
-                    name: dr.GetString(1),
-                    phone: dr.GetString(2),
-                    address: dr.GetString(3)));
+                IQueryCommand<List<Organization>> command = new SearchOrganizationCommand(name);
+                return command.Execute(this);
             }
-
-            dr.Close();
-            ConnectionFactory.CloseConnection();
-
-            return result;
+            catch (Exception ex)
+            {
+                throw new ServiceException(ex.Message);
+            }
         }
 
         protected internal override string GetTableCreationScript()

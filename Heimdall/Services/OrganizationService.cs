@@ -1,14 +1,12 @@
 ﻿using Heimdall.Domain;
-using Heimdall.Domain.Exceptions;
 using Heimdall.DomainStorageServices;
 using Heimdall.DomainStorageServices.Contracts;
-using System;
+using Heimdall.Services.Contracts;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Heimdall.Services
 {
-    public class OrganizationService
+    internal class OrganizationService : IOrganizationService
     {
         private IOrganizationStorageService storageService;
 
@@ -19,62 +17,27 @@ namespace Heimdall.Services
 
         public void Register(Organization organization)
         {
-            try
-            {
-                storageService.Register(organization);
-            }
-            catch(Exception ex)
-            {
-                throw new ServiceException(ex.Message);
-            }
+            storageService.Register(organization);
         }
 
-        public Organization FindById(string id)
+        public Organization GetById(string id)
         {
-            try
-            {
-                return storageService.GetById(id);
-            }
-            catch(Exception ex)
-            {
-                throw new ServiceException(ex.Message);
-            }
+            return storageService.GetById(id);
         }
 
         public void Change(Organization organization)
         {
-            try
-            {
-                storageService.Change(organization);
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceException(ex.Message);
-            }
+            storageService.Change(organization);
         }
 
         public void Remove(Organization organization)
         {
-            try
-            {
-                storageService.Remove(organization);
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceException(ex.Message);
-            }
+            storageService.Remove(organization);
         }
 
         public List<Organization> Search(string name)
         {
-            try
-            {
-                return storageService.Search(name);
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceException(ex.Message);
-            }
+            return storageService.Search(name);
         }
     }
 }
