@@ -8,19 +8,15 @@ namespace Heimdall.Domain.Configurations
 {
     public class HeimdallConfiguration
     {
-
+        #region strange paraphernalia you will not want to know what it is :)
         private static HeimdallConfiguration instance;
         public static HeimdallConfiguration Instance
         {
             get
             {
                 if (instance == null)
-                {
                     instance = new HeimdallConfiguration();
-                    instance.EncryptService = new DefaultEncryptor();
-                    instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM, null);
-                }
-
+            
                 return instance;
             }
         }
@@ -28,9 +24,13 @@ namespace Heimdall.Domain.Configurations
         private HeimdallConfiguration()
         {
             Database = new DatabaseConnectionConfig();
+            EncryptService = new DefaultEncryptor();
+            SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM, null);
         }
+        #endregion
 
         public DatabaseConnectionConfig Database { get; private set; }
+
         public IHeimdallCryptor EncryptService { get; private set; }
 
         public IUserPasswordSecurityValidator PasswordSecurityValidator { get; private set; }

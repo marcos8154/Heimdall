@@ -3,13 +3,35 @@ using Heimdall.Domain.Configurations;
 using Heimdall.Domain.Exceptions;
 using Heimdall.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Heimdall.Tests
 {
     [TestClass]
     public class UserTest
     {
+        [TestMethod]
+        public void VALID_EMAIL()
+        {
+            /*
+             * This is a reverse test, 
+             * so knowing that a weak capacity is
+             * generating a Domain Exception
+             * */
+
+            try
+            {
+                var user = new FatUser("marcos", "MySecurityPassword$1234", "1", "invalidemail", "Street X, District Y, Country Z", "55555");
+
+                //Oh no, a validation flaw :(
+                Assert.IsTrue(false);
+            }
+            catch (DomainException ex)
+            {
+                //YEA! validation in operation!
+                Assert.IsTrue(true, ex.Message);
+            }
+        }
+
         [TestMethod]
         public void MEDIUM_LEVEL_SECURITY_PASSWORD()
         {
@@ -29,7 +51,7 @@ namespace Heimdall.Tests
                 //Oh no, a security flaw :(
                 Assert.IsTrue(false);
             }
-            catch(WeakPasswordException ex)
+            catch (WeakPasswordException ex)
             {
                 //YEA! Safety in operation!
                 Assert.IsTrue(true, ex.Message);

@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Assets;
+using Heimdall.Domain;
 using Heimdall.DomainStorageServices.Contracts;
 
 namespace Heimdall.DomainStorageServices.Commands
@@ -14,10 +15,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public void Execute(StorageServiceBase storageService)
         {
-            string sql = @"insert into Organization 
-(Id, Name, Phone, Address) 
-values 
-(@id, @name, @phone, @address)";
+            string sql = SQLResources.RegisterOrganizationSQL;
 
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Heimdall.Domain
 {
-    public class ThinUser : UserTemplate
+    public class ThinUser : User
     {
         public ThinUser(string name, string password, string organizationId)
         {

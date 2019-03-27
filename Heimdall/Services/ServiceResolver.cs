@@ -1,4 +1,5 @@
-﻿using Heimdall.Services.Contracts;
+﻿using Heimdall.Assets;
+using Heimdall.Services.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Heimdall.Services

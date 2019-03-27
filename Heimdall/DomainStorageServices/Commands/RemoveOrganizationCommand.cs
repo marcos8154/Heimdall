@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Assets;
+using Heimdall.Domain;
 using Heimdall.DomainStorageServices.Contracts;
 
 namespace Heimdall.DomainStorageServices.Commands
@@ -14,7 +15,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public void Execute(StorageServiceBase storageService)
         {
-            string sql = "delete from Organization where Id = @id";
+            string sql = SQLResources.ChangeOrganizationSQL;
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
             storageService.ConnectionFactory.AddParameter("@id", organization.Id);

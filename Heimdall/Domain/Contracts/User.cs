@@ -1,10 +1,11 @@
 ﻿using Heimdall.Domain.Configurations;
+using Heimdall.Domain.Exceptions;
 using Heimdall.Domain.Validation;
 using System;
 
 namespace Heimdall.Domain.Contracts
 {
-    public abstract class UserTemplate
+    public abstract class User
     {
         public string Id { get; set; }
         public string Name { get; private set; }
@@ -15,50 +16,49 @@ namespace Heimdall.Domain.Contracts
         {
             get
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
             internal set
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
         }
         public virtual string PhoneNumber
         {
             get
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
             internal set
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
         }
         public virtual string Address
         {
             get
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
             internal set
             {
-                throw new InvalidOperationException("This user template does not support this feature");
+                throw new DomainException("This user template does not support this feature");
             }
         }
 
         public virtual void SetEmail(string email)
         {
-            throw new InvalidOperationException("This user template does not support this feature");
+            throw new DomainException("This user template does not support this feature");
         }
 
         public virtual void SetPhoneNumber(string phoneNumber)
         {
-            throw new InvalidOperationException("This user template does not support this feature");
-
+            throw new DomainException("This user template does not support this feature");
         }
 
         public virtual void SetAddress(string address)
         {
-            throw new InvalidOperationException("This user template does not support this feature");
+            throw new DomainException("This user template does not support this feature");
         }
 
         public void SetUserName(string name)

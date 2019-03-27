@@ -1,13 +1,11 @@
-﻿using Heimdall.Domain.Configurations;
-using Heimdall.Domain.Contracts;
+﻿using Heimdall.Domain.Contracts;
+using Heimdall.Domain.Exceptions;
 using Heimdall.Domain.Validation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Heimdall.Domain
 {
-    public class FatUser : UserTemplate
+    public class FatUser : User
     {
         public override string Email { get; internal set; }
         public override string Address { get; internal set; }
@@ -15,22 +13,54 @@ namespace Heimdall.Domain
 
         public override void SetEmail(string email)
         {
-            string pattern = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
-            AssertionConcern.AssertArgumentNotNullOrEmpty(email, "Email can not be empty");
-            AssertionConcern.AssertArgumentMatches(pattern , email, "Invalid email");
-            Email = email;
+            try
+            {
+                string pattern = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
+                AssertionConcern.AssertArgumentNotNullOrEmpty(email, "Email can not be empty");
+                AssertionConcern.AssertArgumentMatches(pattern, email, "Invalid email");
+                Email = email;
+            }
+            catch (Exception ex)
+            {
+                throw new DomainException(ex.Message);
+            }
         }
 
         public override void SetAddress(string address)
         {
-            AssertionConcern.AssertArgumentNotEmpty(address, "User address can not be empty");
-            Address = address;
+            try
+            {
+                AssertionConcern.AssertArgumentNotEmpty(address, "User address can not be empty");
+                Address = address;
+            }
+            catch (Exception ex)
+            {
+                throw new DomainException(ex.Message);
+            }
         }
-        
+
         public override void SetPhoneNumber(string phoneNumber)
         {
-            AssertionConcern.AssertArgumentNotNullOrEmpty(phoneNumber, "User phonenumber can not be empty");
-            PhoneNumber = phoneNumber;
+            try
+            {
+                AssertionConcern.AssertArgumentNotNullOrEmpty(phoneNumber, "User phonenumber can not be empty");
+                PhoneNumber = phoneNumber;
+            }
+            catch (Exception ex)
+            {
+                throw new DomainException(ex.Message);
+            }
+        }
+
+        public FatUser(string name, string password, string organizationId,
+            string email, string address, string phoneNumner)
+        {
+            SetUserName(name);
+            SetPassword(password);
+            SetOrganizationId(organizationId);
+            SetEmail(email);
+            SetAddress(address);
+            SetPhoneNumber(phoneNumner);
         }
     }
 }

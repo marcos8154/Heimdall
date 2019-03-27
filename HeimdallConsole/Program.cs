@@ -15,7 +15,8 @@ namespace HeimdallConsole
 
             try
             {
-                var user = new ThinUser("marcos8154", "81547686$Marcos", "1");
+                var user = new FatUser("marcos8154", "81547686$Marcos", "1", "marcos8154", "", "");
+                user.SetEmail("marcos8154@gmail.com");
             }
             catch (Exception ex)
             {

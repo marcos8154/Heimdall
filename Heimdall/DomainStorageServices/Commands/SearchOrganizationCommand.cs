@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Assets;
+using Heimdall.Domain;
 using Heimdall.DomainStorageServices.Contracts;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public List<Organization> Execute(StorageServiceBase storageService)
         {
-            string sql = "select * from Organization where Name like @name";
+            string sql = SQLResources.SearchOrganizationSQL;
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
             storageService.ConnectionFactory.AddParameter("@name", $"%{name}%");

@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Assets;
+using Heimdall.Domain;
 using Heimdall.DomainStorageServices.Contracts;
 
 namespace Heimdall.DomainStorageServices.Commands
@@ -14,7 +15,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public Organization Execute(StorageServiceBase storageService)
         {
-            string sql = "select * from Organization where Id = @id";
+            string sql = SQLResources.ChangeOrganizationSQL;
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
             storageService.ConnectionFactory.AddParameter("@id", organizationId);

@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Assets;
+using Heimdall.Domain;
 using Heimdall.DomainStorageServices.Contracts;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public void Execute(StorageServiceBase storageService)
         {
-            string sql = @"update Organization set 
-Name = @name,
-Phone = @phone,
-Address = @address
-where Id = @id
-";
+            string sql = SQLResources.ChangeOrganizationSQL;
 
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
