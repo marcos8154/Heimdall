@@ -1,7 +1,7 @@
 ﻿using Heimdall.Domain;
 using Heimdall.Domain.Configurations;
+using Heimdall.Domain.Contracts;
 using Heimdall.Security;
-using Heimdall.Security.Contracts;
 using System;
 
 namespace HeimdallConsole
@@ -16,8 +16,9 @@ namespace HeimdallConsole
 
             try
             {
-                var user = new FatUser("marcos8154", "81547686$Marcos", "1", "marcos8154@gmail.com", "222", "222");
-              //  user.SetEmail("marcos8154@gmail.com");
+                var user = new FatUser("marcos8154", "2445652356$MyLife", "1", "user.x@gmail.com", "222", "222");
+                TestUser(user);
+                //  user.SetEmail("marcos8154@gmail.com");
             }
             catch (Exception ex)
             {
@@ -27,6 +28,11 @@ namespace HeimdallConsole
 
             Console.ReadKey();
 
+        }
+
+        private static void TestUser(User user)
+        {
+            string email = user.Email;
         }
     }
 }
