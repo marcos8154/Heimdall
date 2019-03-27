@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Heimdall.Services
 {
-    internal class OrganizationService : IOrganizationService
+    public class OrganizationService : IOrganizationService
     {
         private IOrganizationStorageService storageService;
 
@@ -20,7 +20,7 @@ namespace Heimdall.Services
             storageService.Register(organization);
         }
 
-        public Organization GetById(string id)
+        public Organization FindById(string id)
         {
             return storageService.GetById(id);
         }

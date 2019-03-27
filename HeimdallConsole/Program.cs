@@ -1,7 +1,7 @@
-﻿using Heimdall.Domain.Configurations;
+﻿using Heimdall.Domain;
+using Heimdall.Domain.Configurations;
+using Heimdall.Security;
 using Heimdall.Security.Contracts;
-using Heimdall.Services;
-using Heimdall.Services.Contracts;
 using System;
 
 namespace HeimdallConsole
@@ -11,14 +11,17 @@ namespace HeimdallConsole
         static void Main(string[] args)
         {
             HeimdallConfiguration.Instance.Database.UseSQLServer("localhost", "sa", "81547686", "AbcInfo");
-            HeimdallConfiguration.Instance.UseMyCustomEncryptor(new MeuEncryptor());
-            string crypto = HeimdallConfiguration.Instance.EncryptService.Encrypt("Meu nome");
-            string decrypto = HeimdallConfiguration.Instance.EncryptService.Decript("Meu nome");
+            HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM);
 
-            Console.WriteLine(crypto);
-            Console.WriteLine(decrypto);
-
-            IOrganizationService service = ServiceResolver<IOrganizationService>.Resolve();
+            try
+            {
+                var user = new ThinUser("marcos8154", "81547686$Marcos", "1");
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(ex.Message);
+            }
 
             Console.ReadKey();
 

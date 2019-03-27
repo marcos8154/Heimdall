@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heimdall.Enum
+namespace Heimdall.ConnectionFactory
 {
     internal enum DatabaseType
     {

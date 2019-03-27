@@ -16,6 +16,6 @@ namespace Heimdall.Services.Contracts
 
         List<Organization> Search(string name);
 
-        Organization GetById(string id);
+        Organization FindById(string id);
     }
 }

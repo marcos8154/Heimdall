@@ -1,6 +1,5 @@
 ﻿using Heimdall.ConnectionFactory;
 using Heimdall.Contract;
-using Heimdall.Enum;
 
 namespace Heimdall.Domain.Configurations
 {
