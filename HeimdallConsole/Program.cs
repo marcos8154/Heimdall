@@ -12,11 +12,12 @@ namespace HeimdallConsole
         {
             HeimdallConfiguration.Instance.Database.UseSQLServer("localhost", "sa", "81547686", "AbcInfo");
             HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM);
+            HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
 
             try
             {
-                var user = new FatUser("marcos8154", "81547686$Marcos", "1", "marcos8154", "", "");
-                user.SetEmail("marcos8154@gmail.com");
+                var user = new FatUser("marcos8154", "81547686$Marcos", "1", "marcos8154@gmail.com", "222", "222");
+              //  user.SetEmail("marcos8154@gmail.com");
             }
             catch (Exception ex)
             {
@@ -26,19 +27,6 @@ namespace HeimdallConsole
 
             Console.ReadKey();
 
-        }
-    }
-
-    public class MeuEncryptor : IHeimdallCryptor
-    {
-        public string Decript(string text)
-        {
-            return "Custom Decript";
-        }
-
-        public string Encrypt(string text)
-        {
-            return "Custom Cript";
         }
     }
 }

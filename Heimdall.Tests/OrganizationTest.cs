@@ -13,6 +13,7 @@ namespace Heimdall.Tests
         private void Configure()
         {
             HeimdallConfiguration.Instance.Database.UseSQLServer("localhost", "sa", "81547686", "Heimdall");
+            HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
         }
 
         private List<Organization> MockList

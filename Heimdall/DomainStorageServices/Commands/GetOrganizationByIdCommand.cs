@@ -15,7 +15,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public Organization Execute(StorageServiceBase storageService)
         {
-            string sql = SQLResources.ChangeOrganizationSQL;
+            string sql = SQLResources.GetOrganizationByIdSQL;
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
             storageService.ConnectionFactory.AddParameter("@id", organizationId);

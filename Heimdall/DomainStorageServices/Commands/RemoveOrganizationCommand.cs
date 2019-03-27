@@ -15,7 +15,7 @@ namespace Heimdall.DomainStorageServices.Commands
 
         public void Execute(StorageServiceBase storageService)
         {
-            string sql = SQLResources.ChangeOrganizationSQL;
+            string sql = SQLResources.RemoveOrganizationSQL;
             storageService.ConnectionFactory.OpenConnection();
             storageService.ConnectionFactory.CreateCommand(sql);
             storageService.ConnectionFactory.AddParameter("@id", organization.Id);

@@ -6,8 +6,10 @@ namespace Heimdall.Security.Contracts
 {
     public interface IHeimdallCryptor
     {
+        void SetPassword(string encryptionPassword);
+
         string Encrypt(string text);
 
-        string Decript(string text);
+        string Decrypt(string text);
     }
 }

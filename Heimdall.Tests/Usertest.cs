@@ -20,6 +20,7 @@ namespace Heimdall.Tests
 
             try
             {
+                HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
                 var user = new FatUser("marcos", "MySecurityPassword$1234", "1", "invalidemail", "Street X, District Y, Country Z", "55555");
 
                 //Oh no, a validation flaw :(
@@ -42,6 +43,7 @@ namespace Heimdall.Tests
              * */
 
             HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM);
+            HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
             string notValidPassword = "weakPassword123"; //proposital weak password
 
             try
@@ -68,6 +70,7 @@ namespace Heimdall.Tests
              * */
 
             HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.HIGHT);
+            HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
             string notValidPassword = "weakPassword12$%ha.ha"; //proposital weak password
 
             try

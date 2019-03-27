@@ -70,12 +70,12 @@ namespace Heimdall.Domain.Contracts
         public void SetPassword(string password)
         {
             HeimdallConfiguration.Instance.PasswordSecurityValidator.ValidPasswordSecurity(password);
-            Password = HeimdallConfiguration.Instance.EncryptService.Decript(password);
+            Password = HeimdallConfiguration.Instance.EncryptService.Decrypt(password);
         }
 
         public string RevealPassword()
         {
-            return HeimdallConfiguration.Instance.EncryptService.Decript(Password);
+            return HeimdallConfiguration.Instance.EncryptService.Decrypt(Password);
         }
 
         public void SetOrganizationId(string organizationId)
