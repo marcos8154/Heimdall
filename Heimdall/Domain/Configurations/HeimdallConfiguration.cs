@@ -1,8 +1,9 @@
-﻿using Heimdall.Domain.Contracts;
-using Heimdall.Domain.Validation;
+﻿using System;
+using Heimdall.Domain.Contracts;
 using Heimdall.Security;
+using Heimdall.Security.Enum;
 using Heimdall.Security.Contracts;
-using System;
+using Heimdall.Domain.Enum;
 
 namespace Heimdall.Domain.Configurations
 {
@@ -26,25 +27,13 @@ namespace Heimdall.Domain.Configurations
             Database = new DatabaseConnectionConfig();
             EncryptService = new DefaultEncryptor();
             SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM, null);
-        }
-        #endregion
-
-        public DatabaseConnectionConfig Database { get; private set; }
-
-        public IHeimdallCryptor EncryptService { get; private set; }
-
-        public IUserPasswordSecurityValidator PasswordSecurityValidator { get; private set; }
-
-        public void SetPasswordSecurityLevel(UserPasswordSecurityLevel passwordSecurityLevel,
-            IUserPasswordSecurityValidator myCustomPasswordSecurityValidatior = null)
-        {
-            PasswordSecurityValidator = GetInstancePasswdValidator(passwordSecurityLevel, myCustomPasswordSecurityValidatior);
+            SetUserTemplate(UserModelTemplate.ThinUser);
         }
 
         private IUserPasswordSecurityValidator GetInstancePasswdValidator(UserPasswordSecurityLevel level,
-           IUserPasswordSecurityValidator myCustomPasswordSecurityValidatior = null)
+         IUserPasswordSecurityValidator myCustomPasswordSecurityValidatior = null)
         {
-            switch(level)
+            switch (level)
             {
                 case UserPasswordSecurityLevel.LOW: return new LowLevelPasswordSecurityValidator();
                 case UserPasswordSecurityLevel.MEDIUM: return new MediumLevelPasswordSecurityValidator();
@@ -56,10 +45,31 @@ namespace Heimdall.Domain.Configurations
                 default: throw new InvalidCastException("Invalid password security validator");
             }
         }
+        #endregion
 
+        public DatabaseConnectionConfig Database { get; private set; }
+
+        public IHeimdallCryptor EncryptService { get; private set; }
+
+        public UserModelTemplate UserTemplate { get; private set; }
+
+        public IUserPasswordSecurityValidator PasswordSecurityValidator { get; private set; }
+        
+        public void SetPasswordSecurityLevel(UserPasswordSecurityLevel passwordSecurityLevel,
+            IUserPasswordSecurityValidator myCustomPasswordSecurityValidatior = null)
+        {
+            PasswordSecurityValidator = GetInstancePasswdValidator(passwordSecurityLevel,
+                myCustomPasswordSecurityValidatior);
+        }
+        
         public void UseMyCustomEncryptor(IHeimdallCryptor heimdallCryptor)
         {
             EncryptService = heimdallCryptor;
+        }
+        
+        public void SetUserTemplate(UserModelTemplate template)
+        {
+            UserTemplate = template;
         }
     }
 }

@@ -117,6 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangeFatUserSQL" xml:space="preserve">
+    <value>update HUser set 
+Name = @name,
+Password = @password,
+OrganizationId = @organizationId,
+Email = @email,
+PhoneNumber = @phoneNumber,
+Address = @address
+where Id = @id</value>
+  </data>
   <data name="ChangeOrganizationSQL" xml:space="preserve">
     <value>update Organization set 
 Name = @name,
@@ -124,8 +134,25 @@ Phone = @phone,
 Address = @address
 where Id = @id</value>
   </data>
+  <data name="ChangeThinUserSQL" xml:space="preserve">
+    <value>update User set 
+Name = @name,
+Password = @password,
+OrganizationId = @organizationId
+where Id = @id</value>
+  </data>
   <data name="GetOrganizationByIdSQL" xml:space="preserve">
     <value>select * from Organization where Id = @id</value>
+  </data>
+  <data name="GetUserByEmailSQL" xml:space="preserve">
+    <value>select * from HUser where Email = @email</value>
+  </data>
+  <data name="GetUserByNameSQL" xml:space="preserve">
+    <value>select * from HUser where Name = @name</value>
+  </data>
+  <data name="RegisterFatUserSQL" xml:space="preserve">
+    <value>insert into HUser (Id, Name, Password, OrganizationId, Email, PhoneNumber, Address)
+values (@id, @name, @password, @organizationId, @email, @phoneNumber, @address)</value>
   </data>
   <data name="RegisterOrganizationSQL" xml:space="preserve">
     <value>insert into Organization 
@@ -133,10 +160,20 @@ where Id = @id</value>
 values 
 (@id, @name, @phone, @address)</value>
   </data>
+  <data name="RegisterThinUserSQL" xml:space="preserve">
+    <value>insert into HUser (Id, Name, Password, OrganizationId)
+values (@id, @name, @password, @organizationId)</value>
+  </data>
   <data name="RemoveOrganizationSQL" xml:space="preserve">
     <value>delete from Organization where Id = @id</value>
   </data>
+  <data name="RemoveUserSQL" xml:space="preserve">
+    <value>delete from HUser where Id = @id</value>
+  </data>
   <data name="SearchOrganizationSQL" xml:space="preserve">
     <value>select * from Organization where Name like @name</value>
+  </data>
+  <data name="SearchUsersSQL" xml:space="preserve">
+    <value>select * from HUser where Name like @name</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using Heimdall.Domain.Configurations;
 using Heimdall.Domain.Exceptions;
 using Heimdall.Domain.Validation;
+using Heimdall.DomainStorageServices;
 using System;
 
 namespace Heimdall.Domain.Contracts
@@ -70,7 +71,7 @@ namespace Heimdall.Domain.Contracts
         public void SetPassword(string password)
         {
             HeimdallConfiguration.Instance.PasswordSecurityValidator.ValidPasswordSecurity(password);
-            Password = HeimdallConfiguration.Instance.EncryptService.Decrypt(password);
+            Password = HeimdallConfiguration.Instance.EncryptService.Encrypt(password);
         }
 
         public string RevealPassword()
@@ -82,6 +83,10 @@ namespace Heimdall.Domain.Contracts
         {
             AssertionConcern.AssertArgumentNotNullOrEmpty(organizationId, "Invalid OrganizationId");
             OrganizationId = organizationId;
+            Organization = new OrganizationStorageService().GetById(organizationId);
+
+            if (Organization == null)
+                throw new DomainException("Invalid Organization");
         }
     }
 }

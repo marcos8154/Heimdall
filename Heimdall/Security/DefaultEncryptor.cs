@@ -8,7 +8,7 @@ namespace Heimdall.Security
 {
     internal class DefaultEncryptor : IHeimdallCryptor
     {
-        public string Decrypt(string text)
+        public string Encrypt(string text)
         {
             if (string.IsNullOrEmpty(password))
                 throw new InvalidOperationException("Invalid encryptor password");
@@ -35,7 +35,7 @@ namespace Heimdall.Security
             return Convert.ToBase64String(Results);
         }
 
-        public string Encrypt(string text)
+        public string Decrypt(string text)
         {
             if (string.IsNullOrEmpty(password))
                 throw new InvalidOperationException("Invalid encryptor password");

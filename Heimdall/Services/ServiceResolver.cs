@@ -16,6 +16,7 @@ namespace Heimdall.Services
             //setup our DI
             serviceProvider = new ServiceCollection()
                 .AddTransient<IOrganizationService, OrganizationService>()
+                .AddTransient<IUserService, UserService>()
                 .BuildServiceProvider();
         }
 

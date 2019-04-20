@@ -1,4 +1,5 @@
-﻿using Heimdall.Domain;
+﻿using Heimdall.Domain.Contracts;
+using Heimdall.Domain.Enum;
 using Heimdall.Domain.Exceptions;
 using Heimdall.DomainStorageServices.Commands;
 using Heimdall.DomainStorageServices.Contracts;
@@ -7,18 +8,27 @@ using System.Collections.Generic;
 
 namespace Heimdall.DomainStorageServices
 {
-    internal class OrganizationStorageService : StorageServiceBase
+    internal class ThinUserStorageService : StorageServiceBase, IUserStorageService
     {
-        public OrganizationStorageService()
-            : base("Organization")
+        public ThinUserStorageService()
+            : base("HUser")
         {
+
         }
 
-        public void Change(Organization organization)
+        public UserModelTemplate Template
+        {
+            get
+            {
+                return UserModelTemplate.ThinUser;
+            }
+        }
+
+        public void Change(User user)
         {
             try
             {
-                IStorageCommand command = new ChangeOrganizationCommand(organization);
+                IStorageCommand command = new ChangeThinUserCommand(user);
                 command.Execute(this);
             }
             catch (Exception ex)
@@ -27,11 +37,16 @@ namespace Heimdall.DomainStorageServices
             }
         }
 
-        public Organization GetById(string id)
+        public User GetByEmail(string userEmail)
+        {
+            throw new ServiceException("This user template dont support this feature");
+        }
+
+        public User GetByName(string userName)
         {
             try
             {
-                IQueryCommand<Organization> command = new GetOrganizationByIdCommand(id);
+                IQueryCommand<User> command = new GetThinUserByNameCommand(userName);
                 return command.Execute(this);
             }
             catch (Exception ex)
@@ -40,11 +55,11 @@ namespace Heimdall.DomainStorageServices
             }
         }
 
-        public void Register(Organization organization)
+        public void Register(User user)
         {
             try
             {
-                IStorageCommand command = new RegisterOrganizationCommand(organization);
+                IStorageCommand command = new RegisterThinUserCommand(user);
                 command.Execute(this);
             }
             catch (Exception ex)
@@ -53,11 +68,11 @@ namespace Heimdall.DomainStorageServices
             }
         }
 
-        public void Remove(Organization organization)
+        public void Remove(User user)
         {
             try
             {
-                IStorageCommand command = new RemoveOrganizationCommand(organization);
+                IStorageCommand command = new RemoveUserCommand(user);
                 command.Execute(this);
             }
             catch (Exception ex)
@@ -66,11 +81,11 @@ namespace Heimdall.DomainStorageServices
             }
         }
 
-        public List<Organization> Search(string name)
+        public List<User> Search(string searchQuery)
         {
             try
             {
-                IQueryCommand<List<Organization>> command = new SearchOrganizationCommand(name);
+                IQueryCommand<List<User>> command = new SearchThinUserCommand(searchQuery);
                 return command.Execute(this);
             }
             catch (Exception ex)
@@ -82,16 +97,15 @@ namespace Heimdall.DomainStorageServices
         protected internal override string GetTableCreationScript()
         {
             return @"
-create table Organization
+create table HUser
 (
-    Id varchar (10) not null,
+    Id varchar(50) not null,
     Name varchar(50) not null,
-    Phone varchar(15) not null,
-    Address varchar(100) not null,
+    Password varchar(300) not null,
+    OrganizationId varchar(40) not null,
 
     primary key(Id)
-)
-";
+)";
         }
     }
 }

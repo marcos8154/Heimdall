@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Heimdall.Security
+namespace Heimdall.Security.Enum
 {
     public enum UserPasswordSecurityLevel
     {

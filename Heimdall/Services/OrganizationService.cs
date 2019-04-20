@@ -8,7 +8,7 @@ namespace Heimdall.Services
 {
     public class OrganizationService : IOrganizationService
     {
-        private IOrganizationStorageService storageService;
+        private OrganizationStorageService storageService;
 
         public OrganizationService()
         {

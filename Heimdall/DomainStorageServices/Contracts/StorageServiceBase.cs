@@ -61,15 +61,12 @@ namespace Heimdall.DomainStorageServices.Contracts
         }
 
         private string tableName;
-        protected void SetTableName(string tableName)
-        {
-            this.tableName = tableName;
-            CreateTableIfNotExists();
-        }
-
-        public StorageServiceBase()
+     
+        public StorageServiceBase(string tableName)
         {
             ConnectionFactory = HeimdallConfiguration.Instance.Database.ConnectionFactory;
+            this.tableName = tableName;
+            CreateTableIfNotExists();
         }
     }
 }

@@ -52,7 +52,20 @@ namespace Heimdall.Domain
             }
         }
 
+        internal FatUser(string id, string name, string password, string organizationId,
+            string email, string address, string phoneNumner)
+        {
+            Id = id;
+            ResolveValues(name, password, organizationId, email, address, phoneNumner);
+        }
+
         public FatUser(string name, string password, string organizationId,
+            string email, string address, string phoneNumner)
+        {
+            ResolveValues(name, password, organizationId, email, address, phoneNumner);
+        }
+
+        private void ResolveValues(string name, string password, string organizationId,
             string email, string address, string phoneNumner)
         {
             SetUserName(name);

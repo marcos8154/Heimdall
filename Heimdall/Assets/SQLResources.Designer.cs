@@ -61,6 +61,22 @@ namespace Heimdall.Assets {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a update HUser set 
+        ///Name = @name,
+        ///Password = @password,
+        ///OrganizationId = @organizationId,
+        ///Email = @email,
+        ///PhoneNumber = @phoneNumber,
+        ///Address = @address
+        ///where Id = @id.
+        /// </summary>
+        internal static string ChangeFatUserSQL {
+            get {
+                return ResourceManager.GetString("ChangeFatUserSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a update Organization set 
         ///Name = @name,
         ///Phone = @phone,
@@ -74,11 +90,52 @@ namespace Heimdall.Assets {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a update User set 
+        ///Name = @name,
+        ///Password = @password,
+        ///OrganizationId = @organizationId
+        ///where Id = @id.
+        /// </summary>
+        internal static string ChangeThinUserSQL {
+            get {
+                return ResourceManager.GetString("ChangeThinUserSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a select * from Organization where Id = @id.
         /// </summary>
         internal static string GetOrganizationByIdSQL {
             get {
                 return ResourceManager.GetString("GetOrganizationByIdSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a select * from HUser where Email = @email.
+        /// </summary>
+        internal static string GetUserByEmailSQL {
+            get {
+                return ResourceManager.GetString("GetUserByEmailSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a select * from HUser where Name = @name.
+        /// </summary>
+        internal static string GetUserByNameSQL {
+            get {
+                return ResourceManager.GetString("GetUserByNameSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a insert into HUser (Id, Name, Password, OrganizationId, Email, PhoneNumber, Address)
+        ///values (@id, @name, @password, @organizationId, @email, @phoneNumber, @address).
+        /// </summary>
+        internal static string RegisterFatUserSQL {
+            get {
+                return ResourceManager.GetString("RegisterFatUserSQL", resourceCulture);
             }
         }
         
@@ -95,6 +152,16 @@ namespace Heimdall.Assets {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a insert into HUser (Id, Name, Password, OrganizationId)
+        ///values (@id, @name, @password, @organizationId).
+        /// </summary>
+        internal static string RegisterThinUserSQL {
+            get {
+                return ResourceManager.GetString("RegisterThinUserSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a delete from Organization where Id = @id.
         /// </summary>
         internal static string RemoveOrganizationSQL {
@@ -104,11 +171,29 @@ namespace Heimdall.Assets {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a delete from HUser where Id = @id.
+        /// </summary>
+        internal static string RemoveUserSQL {
+            get {
+                return ResourceManager.GetString("RemoveUserSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a select * from Organization where Name like @name.
         /// </summary>
         internal static string SearchOrganizationSQL {
             get {
                 return ResourceManager.GetString("SearchOrganizationSQL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a select * from HUser where Name like @name.
+        /// </summary>
+        internal static string SearchUsersSQL {
+            get {
+                return ResourceManager.GetString("SearchUsersSQL", resourceCulture);
             }
         }
     }

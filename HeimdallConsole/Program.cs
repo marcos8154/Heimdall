@@ -1,7 +1,11 @@
 ﻿using Heimdall.Domain;
 using Heimdall.Domain.Configurations;
 using Heimdall.Domain.Contracts;
+using Heimdall.Domain.Enum;
 using Heimdall.Security;
+using Heimdall.Security.Enum;
+using Heimdall.Services;
+using Heimdall.Services.Contracts;
 using System;
 
 namespace HeimdallConsole
@@ -10,15 +14,20 @@ namespace HeimdallConsole
     {
         static void Main(string[] args)
         {
-            HeimdallConfiguration.Instance.Database.UseSQLServer("localhost", "sa", "81547686", "AbcInfo");
-            HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.MEDIUM);
+            HeimdallConfiguration.Instance.Database.UseSQLServer("localhost", "sa", "81547686", "Heimdall");
+            HeimdallConfiguration.Instance.SetPasswordSecurityLevel(UserPasswordSecurityLevel.LOW);
             HeimdallConfiguration.Instance.EncryptService.SetPassword("MySecurePa$$word@123456.C#");
+            HeimdallConfiguration.Instance.SetUserTemplate(UserModelTemplate.ThinUser);
 
             try
             {
-                var user = new FatUser("marcos8154", "2445652356$MyLife", "1", "user.x@gmail.com", "222", "222");
-                TestUser(user);
-                //  user.SetEmail("marcos8154@gmail.com");
+                var orgService = ServiceResolver<IOrganizationService>.Resolve();
+                orgService.Register(new Organization("1", "Empresa", "33565868", "Av. Rua. Bairro"));
+                var service = ServiceResolver<IUserService>.Resolve();
+
+          //      service.Register(new ThinUser("Marcos", "81547686", "1"));
+
+                var user = service.GetByName("Marcos");
             }
             catch (Exception ex)
             {
